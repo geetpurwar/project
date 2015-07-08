@@ -1,4 +1,4 @@
-<!doctype html>
+<!doctype html manifest="example.appcache">
 <html class="no-js" lang="">
     <head>
         <meta charset="utf-8">
@@ -8,6 +8,27 @@
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         <link rel="icon" href="favicon.png" type="image/png" />
         <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript">
+          (function(document,navigator,standalone) {
+              // prevents links from apps from oppening in mobile safari
+              // this javascript must be the first script in your <head>
+              if ((standalone in navigator) && navigator[standalone]) {
+                  var curnode, location=document.location, stop=/^(a|html)$/i;
+                  document.addEventListener('click', function(e) {
+                      curnode=e.target;
+                      while (!(stop).test(curnode.nodeName)) {
+                          curnode=curnode.parentNode;
+                      }
+                      // Condidions to do this only on links to your own app
+                      // if you want all links, use if('href' in curnode) instead.
+                      if('href' in curnode && ( curnode.href.indexOf('http') || ~curnode.href.indexOf(location.host) ) ) {
+                          e.preventDefault();
+                          location.href = curnode.href;
+                      }
+                  },false);
+              }
+          })(document,window.navigator,'standalone');
+      </script>
     </head>
     <body>
     <svg display="none" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
