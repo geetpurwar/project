@@ -185,6 +185,29 @@
         <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700,800' rel='stylesheet' type='text/css'>
     <script src="js/min/main-min.js"></script>
     <script>
+    	// Mobile Safari in standalone mode
+	if (('standalone' in window.navigator) && window.navigator.standalone) {
+
+	    window.addEventListener('load', function() {
+
+	        var links = document.links,
+	            link,
+	            i;
+
+	        for (i = 0; i < links.length; i++) {
+	            // Don't do this for javascript: links
+	            if (~(link = links[i]).href.toLowerCase().indexOf('javascript')) {
+	                link.addEventListener('click', function(event) {
+	                    top.location.href = this.href;
+	                    event.returnValue = false;
+	                }, false);
+	            }
+	        }
+
+	    }, false);
+
+	}
+
     	function toggleFullScreen() {
 		  var doc = window.document;
 		  var docEl = doc.documentElement;
@@ -200,16 +223,6 @@
 		  }
 		}
 		toggleFullScreen();
-
-		var a=document.getElementsByTagName("a");
-for(var i=0;i<a.length;i++)
-{
-    a[i].onclick=function()
-    {
-        window.location=this.getAttribute("href");
-        return false
-    }
-}
     </script>
     </body>
 </html>
