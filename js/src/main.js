@@ -50,6 +50,12 @@ $(function() {
 		    } else {
 		        $('.page-template-page-home header').removeClass("pageHeader");
 		    }
+    	}else{
+    		if ($(window).scrollTop() > 80 ) {
+		        $('.page-template-page-home header').addClass("pageHeader");
+		    } else {
+		        $('.page-template-page-home header').removeClass("pageHeader");
+		    }
     	}
     });
 
